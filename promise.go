@@ -20,7 +20,7 @@ func New[T any](handler func(resolve func(T), reject func(error))) *Promise[T] {
 		catch:   make([]func(error), 0, 1),
 		finally: make([]func(), 0, 1),
 	}
-	handler(
+	go handler(
 		func(t T) {
 			prom.result <- t
 			close(prom.fail)
